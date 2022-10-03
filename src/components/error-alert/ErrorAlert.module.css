@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: "bold";
+  color: '#ffc101';
+}
+
+.message {
+  font-size: 20;
+  color: "#fff";
+  max-width: 250px;
+  text-align: "center";
+  margin: 10 0;
+}
+
+.retryBtn {
+  margin-top: 10px;
+  background-color: transparent;
+  border: none;
+}
