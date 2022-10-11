@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import ScreenWrapper from '../components/screen-wrapper';
-// import CodeNumber from '../components/code-number';
+import CodeNumber from '../components/code-number';
 import ErrorAlert from '../components/error-alert';
 import Loader from '../components/loader';
 import { selectPairCodeData } from '../store/selectors';
@@ -37,7 +36,7 @@ const PairingCode = () => {
 				pairCodeData.hasError ? (
 					<ErrorAlert onRetry={fetchCode} error="Error" message="" />
 				) : (pairCodeData.code !== null) && (
-					<p>Pair Code...</p>
+					<CodeNumber code={pairCodeData.code} />
 				)
 			}
 		</div>

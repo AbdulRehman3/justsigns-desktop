@@ -64,8 +64,8 @@ export const pairCodeSlice = createSlice({
 		});
 
 		builder.addCase(fetchPairCode.rejected, (state, { payload }) => {
-			state.code = 123535435;
-			// state.hasError = true;
+			state.code = null;
+			state.hasError = true;
 			state.isLoading = false;
 		})
 	},

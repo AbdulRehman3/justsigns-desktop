@@ -1,0 +1,17 @@
+.contentContainer {
+    width: auto;
+    margin-left: 225px;
+    height: calc(100vh - 92px);
+    padding: 16px;
+}
+
+.slide {
+    width: 100%;
+    height: calc(100vh - 92px);
+    background-color: #fff;
+}
+
+.noSupported {
+    text-align: center;
+    margin-top: calc((100vh - 92px)/2);
+}

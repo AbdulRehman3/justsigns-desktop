@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/loader';
+import ErrorAlert from '../components/error-alert';
+import DataCarousel from '../components/data-carousel';
+
 import { AppDispatch } from '../store';
 import { fetchSlidesData } from '../store/actions';
 import { selectSlidesData } from '../store/slides';
-// import DataCarousel from '../components/data-carousel';
-// import ScreenWrapper from '../components/screen-wrapper';
-// import Loader from '../components/loader';
-// import ErrorAlert from '../components/error-alert';
 
 const Home = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -31,30 +31,18 @@ const Home = () => {
 	}, [slidesData.refreshAfter]);
 
 	return (
-		<div>
+		<div style={{height: "100%"}}>
 			{slidesData.isLoading ? (
-				<p>Loader...</p>
+				<Loader />
 			) :
 				(slidesData.hasError || slidesData.slides.length === 0) ? (
-					<p>Error</p>
+					<ErrorAlert error={slidesData.hasError ? "Failed": "No Slides."} onRetry={fetchData} />
 				) : (
-					<p>Data Carousel</p>
+					<DataCarousel slides={slidesData.slides} />
 				)
 			}
 		</div>
 	);
 };
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		flexDirection: "column",
-// 		width: "100%",
-// 		height: "100%",
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 		alignSelf: "center"
-// 	}
-// })
 
 export default Home;

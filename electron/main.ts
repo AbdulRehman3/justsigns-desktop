@@ -22,6 +22,23 @@ function createWindow() {
 
     win.webContents.openDevTools();
 
+    win.webContents.session.webRequest.onBeforeSendHeaders(
+      (details, callback) => {
+        callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
+      },
+    );
+    
+    win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+      callback({
+        responseHeaders: {
+          'Access-Control-Allow-Origin': ['*'],
+          // We use this to bypass headers
+          'Access-Control-Allow-Headers': ['*'],
+          ...details.responseHeaders,
+        },
+      });
+    });
+
     // Hot Reloading on 'node_modules/.bin/electronPath'
     require('electron-reload')(__dirname, {
       electron: path.join(__dirname,

@@ -1,0 +1,45 @@
+.sidebar{
+    background: #212121;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 225px;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+    box-shadow: -10px 0px 10px 1px #151515;
+}
+
+.logoContainer {
+    margin-bottom: 30px;
+    align-items: center;
+}
+.appLogo {
+    display: block;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.sidebarList {
+    list-style-type: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 0;
+}
+.sidebarLink {
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+.headerContainer {
+    color: white;
+    margin-left: 225px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.headerMenu {
+    margin: 16px;
+    cursor: pointer;
+}
