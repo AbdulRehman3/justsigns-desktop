@@ -34,7 +34,7 @@ const PairingCode = () => {
 	useEffect(() => {
 		if (pairCodeData.isPaired) {
 			navigate('home');
-		} else if (pairCodeData.pairingChecked) {
+		} else if (pairCodeData.code) {
 			timeIntervalRef = setInterval(() => {
 				dispatch(fetchSlidesData());
             }, DEVICE_PAIRING_CHECK_INTERVAL);
@@ -43,7 +43,7 @@ const PairingCode = () => {
 		return () => {
 			clearInterval(timeIntervalRef);
 		}
-	}, [pairCodeData.isPaired, pairCodeData.pairingChecked]);
+	}, [pairCodeData.isPaired, pairCodeData.code]);
 
 	return (
 		<div className="container">

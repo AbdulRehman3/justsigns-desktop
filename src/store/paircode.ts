@@ -3,7 +3,6 @@ import { fetchPairCodeFromServer } from '../api/pairCode.api';
 import { generateUniqueId } from '../utils/deviceId';
 import { setLocalstoragePairCode } from '../utils/localstorage';
 import { RootState } from './index';
-import { fetchSlidesData } from './slides';
 
 interface PairCodeState {
 	deviceId?: string;
@@ -38,7 +37,6 @@ export const fetchPairCode = createAsyncThunk<number>(
 
 		const response = await fetchPairCodeFromServer(uniqueDeviceId);
 		setLocalstoragePairCode(response);
-		dispatch(fetchSlidesData());
 		return parseInt(response);
 	}
 )
