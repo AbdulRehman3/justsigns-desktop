@@ -3,6 +3,7 @@ import { fetchSlides } from '../api/slides.api';
 import { Slide } from '../types/slide.interface';
 import { parseSlidesResult } from '../utils/parseSlidesResult';
 import { RootState } from './index';
+import { setPairingStatus } from './paircode';
 
 interface SlidesState {
 	slides: Slide[],
@@ -20,13 +21,15 @@ const initialState: SlidesState = {
 
 export const fetchSlidesData = createAsyncThunk<Slide[]>(
 	'slides/fetch',
-	async (_: void, { getState }) => {
+	async (_: void, { getState, dispatch }) => {
 		const { pairCode } = getState() as RootState;
 		const { code } = pairCode;
 		const response: any = await fetchSlides(code || -1);
-		if (!response) {
+		if (!response || !Array.isArray(response)) {
+			dispatch(setPairingStatus(false));
 			return [];
-		}		
+		}
+		dispatch(setPairingStatus(true));
 
 		const parsedSlides = parseSlidesResult(response);
 		return parsedSlides;

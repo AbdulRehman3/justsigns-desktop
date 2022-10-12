@@ -13,3 +13,12 @@ export const parseSlidesResult = (slidesResult: any[]) => {
 	});
 	return slides;
 }
+
+export const isValidJSON = (data: string) => {
+    try {
+        JSON.parse(data);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

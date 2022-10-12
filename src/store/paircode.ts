@@ -3,12 +3,15 @@ import { fetchPairCodeFromServer } from '../api/pairCode.api';
 import { generateUniqueId } from '../utils/deviceId';
 import { setLocalstoragePairCode } from '../utils/localstorage';
 import { RootState } from './index';
+import { fetchSlidesData } from './slides';
 
 interface PairCodeState {
 	deviceId?: string;
 	code: number | null;
 	isLoading: boolean,
 	hasError: boolean,
+	isPaired: boolean,
+	pairingChecked: boolean,
 }
 
 const initialState: PairCodeState = {
@@ -16,6 +19,8 @@ const initialState: PairCodeState = {
 	isLoading: true,
 	hasError: false,
 	deviceId: undefined,
+	isPaired: false,
+	pairingChecked: false,
 }
 
 export const fetchPairCode = createAsyncThunk<number>(
@@ -33,6 +38,7 @@ export const fetchPairCode = createAsyncThunk<number>(
 
 		const response = await fetchPairCodeFromServer(uniqueDeviceId);
 		setLocalstoragePairCode(response);
+		dispatch(fetchSlidesData());
 		return parseInt(response);
 	}
 )
@@ -46,8 +52,12 @@ export const pairCodeSlice = createSlice({
 			state.hasError = false;
 			state.isLoading = false;
 		},
-		setDeviceId: (state, { payload }: {payload: string}) => {
+		setDeviceId: (state, { payload }: { payload: string }) => {
 			state.deviceId = payload;
+		},
+		setPairingStatus: (state, { payload }: { payload: boolean }) => {
+			state.pairingChecked = true;
+			state.isPaired = payload;
 		}
 	},
 	extraReducers: (builder) => {
@@ -72,7 +82,7 @@ export const pairCodeSlice = createSlice({
 });
 
 // Actions
-export const { setPairCode, setDeviceId } = pairCodeSlice.actions;
+export const { setPairCode, setDeviceId, setPairingStatus } = pairCodeSlice.actions;
 
 // Selectors
 export const selectPairCodeData = (state: RootState): PairCodeState => state.pairCode;
